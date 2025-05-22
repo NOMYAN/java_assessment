@@ -70,8 +70,11 @@ public class Main
         }
         System.out.println( course );
         courseService.enrollStudent( courseId, student );
-        studentService.enrollToCourse( studentId, course );
-        System.out.println( "Student with ID: " + studentId + " enrolled successfully to " + courseId );
+        boolean status = studentService.enrollToCourse( studentId, course );
+        if (status)
+            System.out.println( "Student with ID: " + studentId + " enrolled successfully to " + courseId );
+        else
+            System.out.println("Unable to enrol Student with ID: " + studentId + ". Already enrolled");
 
     }
 
@@ -87,6 +90,32 @@ public class Main
 
     private static void gradeStudent( StudentService studentService, Scanner scanner )
     {
+        System.out.println( "Enter student ID: " );
+        String studentId = scanner.next();
+        Student student = studentService.findStudent( studentId );
+        if ( student != null )
+        {
+            System.out.println( "Student Found: " );
+            System.out.println( student );
+
+            System.out.println( "enter course ID" );
+            String courseId = scanner.next();
+
+            if(student.isAttendingCourse(courseId)) {
+                System.out.println("Enter grade: (0 - 9)");
+                String credit = scanner.next();
+
+                if(student.gradeCourse(courseId, Integer.parseInt(credit))) {
+                    System.out.println("courseId: " + courseId + "grade: " + credit);
+                } else {
+                    System.out.println("Failed - Student already graded for this course" + courseId);
+                }
+            } else {
+                System.out.println( "Unable to grade course " + courseId + ". Student not in this course.");
+            }
+        } else {
+            System.out.println( "Unable to find student with ID " + studentId);
+        }
 
     }
 

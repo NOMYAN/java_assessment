@@ -14,16 +14,59 @@ public class Student
 
     private final List<Course> courses = new ArrayList<>();
 
+    //Hashmap is blank
     private final Map<String, Course> approvedCourses = new HashMap<>();
+
+    //Create hashmap for passed/failed, and average. Declaration of attributes. private final= memory location
+    private final Map<String, Integer> courseCreditsAwarded = new HashMap<>();
 
     public Student( String id, String name, String email, Date birthDate )
     {
         super( id, name, email, birthDate );
     }
 
-    public void enrollToCourse( Course course )
+    //Add Getter - to point to private final approvedCourses
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    //Getter- no use?
+    public Map<String, Integer> getCourseCreditsAwarded() {
+        return courseCreditsAwarded;
+    }
+
+    public boolean enrollToCourse(Course course )
     {
-        //TODO implement this method
+        //TODO DONE! add the student to the attribute "courses"
+        //boolean -contains
+        if(courses.contains(course)) return false;
+        //not to have duplicates(this is why this exists)
+
+        this.courses.add(course);
+        registerApprovedCourse(course); //added. After you enroll the person, immediately approved the person
+        return true;
+    }
+
+    //Add gradeCourse - and change to string
+    public String getGrade(String courseCode)
+    {
+        //TODO -Done?
+        //Per course
+        if(courseCreditsAwarded.containsKey(courseCode)) {
+            return (Integer.toString(courseCreditsAwarded.get(courseCode)));
+        }
+        return "Not graded";
+    }
+
+    //Add gradCourse
+    public boolean gradeCourse(String courseCode, Integer grade)
+    {
+        //TODO -Done?
+        if(courseCreditsAwarded.containsKey(courseCode)) {
+            return false;
+        }
+        this.courseCreditsAwarded.put(courseCode, grade);
+        return true;
     }
 
     public void registerApprovedCourse( Course course )
@@ -33,8 +76,8 @@ public class Student
 
     public boolean isCourseApproved( String courseCode )
     {
-        //TODO implement this method
-        return false;
+        //TODO DONE. WHAT IS THE COURSE APPROVED.. can return directly, not necessarily need T&F
+        return approvedCourses.containsKey( courseCode );
     }
 
     // CHALLENGE IMPLEMENTATION: Read README.md to find instructions on how to solve. 
@@ -46,7 +89,12 @@ public class Student
 
     public boolean isAttendingCourse( String courseCode )
     {
-        //TODO implement this method
+        //TODO -DONE!
+        for (Course course : courses) {
+            if (course.getCode().equals(courseCode)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -59,8 +107,8 @@ public class Student
     @Override
     public List<Course> getApprovedCourses()
     {
-        //TODO implement this method
-        return null;
+        //TODO
+        return courses;
     }
 
     @Override

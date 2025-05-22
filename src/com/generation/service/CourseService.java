@@ -11,12 +11,20 @@ import java.util.Map;
 
 public class CourseService
 {
+    //all courses displayed. need to the courseid to enroll the studetnts
     private final Map<String, Course> courses = new HashMap<>();
 
     private final Map<String, List<Student>> enrolledStudents = new HashMap<>();
 
     public CourseService()
     {
+        //Binary option:
+        // 0 = false, 9 passed
+        // If is this, no need to use list.F
+
+        //Average or Weighted Average option:
+        //0- 4.5 = failed, about 4.5 = pass
+
         Module module = new Module( "INTRO-CS", "Introduction to Computer Science",
                                     "Introductory module for the generation technical programs" );
         registerCourse( new Course( "INTRO-CS-1", "Introduction to Computer Science", 9, module ) );
@@ -35,8 +43,7 @@ public class CourseService
         registerCourse( new Course( "INTRO-WEB-4", "Advanced HTML", 9, moduleWebFundamentals ) );
         registerCourse( new Course( "INTRO-WEB-5", "Advanced CSS", 9, moduleWebFundamentals ) );
         registerCourse( new Course( "INTRO-WEB-6", "Introduction to Bootstrap Framework", 9, moduleWebFundamentals ) );
-        registerCourse(
-            new Course( "INTRO-WEB-7", "Introduction to JavaScript for Web Development", 9, moduleWebFundamentals ) );
+        registerCourse( new Course( "INTRO-WEB-7", "Introduction to JavaScript for Web Development", 9, moduleWebFundamentals ) );
 
     }
 
